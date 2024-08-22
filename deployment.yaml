@@ -50,7 +50,7 @@ spec:
         - env:
             - name: TIKV_URL
               value: 'http://svc-app-tikv-datalayer-api-old.ns-app-tax-alpha:3000/'
-          image: aipowerbot/tikvclient
+          image: ghcr.io/syslabtech/tikvclient/tikvclient:latest
           imagePullPolicy: Always
           name: app-tikvclient-go
           ports:

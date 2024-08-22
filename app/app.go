@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"html/template"
 	"io"
+	"log"
 	"net/http"
 	"os"
 	"path/filepath"
@@ -59,7 +60,7 @@ func HandleFormSubmission(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Error reading response", http.StatusInternalServerError)
 			return
 		}
-
+		log.Printf("Response from server: %s", string(body))
 		fmt.Fprintf(w, "Response from server: %s", string(body))
 	} else {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)
@@ -117,7 +118,7 @@ func HandlePutSubmission(w http.ResponseWriter, r *http.Request) {
 			http.Error(w, "Error reading response", http.StatusInternalServerError)
 			return
 		}
-
+		log.Printf("Response from server: %s", string(body))
 		fmt.Fprintf(w, "Response from server: %s", string(body))
 	} else {
 		http.Error(w, "Invalid request method", http.StatusMethodNotAllowed)

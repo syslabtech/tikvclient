@@ -10,7 +10,7 @@ COPY . .
 
 RUN CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -o application -a -ldflags="-s -w" -installsuffix cgo
 
-RUN upx --ultra-brute -qq server && upx -t server 
+RUN upx --ultra-brute -qq application && upx -t application 
 
 FROM scratch
 

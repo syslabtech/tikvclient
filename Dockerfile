@@ -1,12 +1,20 @@
-FROM golang:1.23.0
+FROM golang:1.23.0-bookworm AS build
 
 WORKDIR /app
 
+COPY go.mod ./
+
+RUN go mod download && go mod verify
+
 COPY . . 
 
-RUN go mod download
+RUN CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -o application -a -ldflags="-s -w" -installsuffix cgo
 
-RUN go build -o application . 
+RUN upx --ultra-brute -qq server && upx -t server 
 
-CMD ["./application"]
+FROM scratch
+
+COPY --from=build /app/application /application
+
+ENTRYPOINT ["/application"]
 

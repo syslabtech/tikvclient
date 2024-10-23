@@ -5,12 +5,12 @@ FROM golang:1.23-bookworm AS build
 WORKDIR /app
 
 # Copy go.mod and download dependencies
-COPY go.mod go.sum ./
-RUN go mod download && go mod verify
+
+
 
 # Copy the rest of the application source code
 COPY . .
-
+RUN go mod download && go mod verify
 # Build the Go binary for a Linux target
 RUN CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -o server -a -ldflags="-s -w" -installsuffix cgo
 

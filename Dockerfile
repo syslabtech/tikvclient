@@ -14,6 +14,9 @@ RUN go mod download && go mod verify
 # Build the Go binary for a Linux target
 RUN CGO_ENABLED=0 GOARCH=amd64 GOOS=linux go build -o server -a -ldflags="-s -w" -installsuffix cgo
 
+# Install xz-utils for extracting .tar.xz and curl to download the UPX binary
+RUN apt-get update && apt-get install -y xz-utils curl
+
 # Download UPX manually and install it
 RUN curl -L https://github.com/upx/upx/releases/download/v4.0.2/upx-4.0.2-amd64_linux.tar.xz -o upx.tar.xz \
     && tar -xf upx.tar.xz \

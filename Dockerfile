@@ -31,6 +31,8 @@ FROM scratch
 
 # Copy the compressed binary from the build stage
 COPY --from=build /app/server /server
+COPY --from=build /app/static/* /static
+COPY --from=build /app/templates/* /templates
 
 # Run the server binary
 ENTRYPOINT ["/server"]

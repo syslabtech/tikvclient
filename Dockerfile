@@ -27,12 +27,12 @@ RUN curl -L https://github.com/upx/upx/releases/download/v4.0.2/upx-4.0.2-amd64_
 RUN upx --ultra-brute -qq server && upx -t server 
 
 # Stage 2: Use a minimal image for the final production build
-FROM scratch
+# FROM scratch
 
-# Copy the compressed binary from the build stage
-COPY --from=build /app/server /server
-COPY --from=build /app/static/* /static
-COPY --from=build /app/templates/* /templates
+# # Copy the compressed binary from the build stage
+# COPY --from=build /app/server /server
+# COPY --from=build /app/static/* /static
+# COPY --from=build /app/templates/* /templates
 
 # Run the server binary
-ENTRYPOINT ["/server"]
+ENTRYPOINT ["./server"]
